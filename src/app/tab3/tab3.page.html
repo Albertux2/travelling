@@ -1,17 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-TabHeader [name]="'Perfilito'" [icon]="'person'"></app-TabHeader>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-card
+    class="m-3 h-5/6 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-900 border-2 border-white shadow-md shadow-white"
+  >
+    <ion-card-header>
+      <div class="flex items-center justify-center">
+        <img
+          class="h-32 w-32 rounded-full border-solid border-4 border-white object-cover"
+          src="https://cdn-icons-png.flaticon.com/512/2922/2922566.png"
+        />
+      </div>
+      <div class="mt-1 max-h-max text-center">
+        <ion-card-title class="truncate text-2xl font-bold"
+          >Josefa</ion-card-title
+        >
+      </div>
+    </ion-card-header>
+    <ion-card-content class="ion-text-center">
+      <div class="max-h-max">
+        <ion-button fill="outline" class="font-bold" expand="block" size="large"><ion-icon class="mr-1" icon="time"></ion-icon>Historial</ion-button>
+        <ion-button fill="outline" class="font-bold" expand="block" size="large"><ion-icon class="mr-1" icon="calendar"></ion-icon>Reservas</ion-button>
+        <ion-button fill="outline" class="font-bold" expand="block" size="large"><ion-icon class="mr-1" name="chatbubbles-sharp"></ion-icon>Comentarios</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

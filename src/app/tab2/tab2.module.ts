@@ -7,6 +7,9 @@ import { Tab2Page } from './tab2.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { TabHeaderComponent } from '../components/TabHeader/TabHeader.component';
+import { TabHeaderModule } from '../components/TabHeader/TabHeader.module';
+import { TravelCardModule } from '../components/TravelCard/TravelCard.module';
 
 @NgModule({
   imports: [
@@ -14,7 +17,9 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab2PageRoutingModule
+    Tab2PageRoutingModule,
+    TabHeaderModule,
+    TravelCardModule
   ],
   declarations: [Tab2Page]
 })

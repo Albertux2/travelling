@@ -1,0 +1,26 @@
+<ion-card class="lg:w-full border-2 border-white shadow-md shadow-white mb-4" (click)="onClick()">
+  <div class="h-1/6 w-full flex justify-center items-center">
+    <img
+      src="{{card.imgUrl}}"
+      class="w-full max-h-56 h-56 object-cover"
+      onerror="this.src='https://media-cdn.tripadvisor.com/media/photo-s/1c/de/e7/a3/exterior-predator-lagoon.jpg'"
+    />
+  </div>
+  <ion-card-header>
+    <ion-card-subtitle> {{card.type}} </ion-card-subtitle>
+    <ion-card-title> {{card.title}} {{"⋆".repeat(card.valoration)}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{card.content}}
+    <ion-item class="mt-5">
+      <ion-title>{{card.price}}€/día</ion-title>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-fab-button [color]="card.favorite?'danger':''" size="small" fill="outline" (click)="this.addToFavorite($event)">
+            <fa-icon [icon]="card.favorite?'heart-circle-check':'heart'" size="lg" [ngStyle]="card.favorite?{'color':'white'}:{'color':'red'}"></fa-icon>
+          </ion-fab-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-item>
+    </ion-card-content>
+</ion-card>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ɵɵelementContainerEnd } from '@angular/core';
+import { Travel } from '../model/Travel';
+import { CardService } from '../services/card.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +9,11 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  public favorites:Travel[];
+
+
+  constructor(private cardService:CardService) {
+    this.favorites = cardService.favorites;
+  }
 
 }
