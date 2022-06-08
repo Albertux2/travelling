@@ -5,9 +5,15 @@ import {
   AlertController,
   IonRouterOutlet,
   NavController,
+  ToastController,
 } from '@ionic/angular';
 import { Travel } from 'src/app/model/Travel';
 import { Comment } from 'src/app/model/Comment';
+import { UserAuthenticationService } from 'src/app/services/UserAuthentication.service';
+import { User } from 'src/app/model/User';
+import { CommentService } from 'src/app/services/Comment.service';
+import { Booking } from 'src/app/model/Booking';
+import { BookingService } from 'src/app/services/Booking.service';
 
 @Component({
   selector: 'app-Travel',
@@ -20,36 +26,23 @@ export class TravelComponent implements OnInit {
   private _endDate: Date;
   private _commentData: FormGroup;
   private _bookingData: FormGroup;
-  private _comments: Comment[] = [
-    {
-      date: new Date(),
-      user: {
-        username: 'Albertux2',
-        imgUrl:
-          'https://ih1.redbubble.net/image.531944933.8717/flat,750x1000,075,f.u4.jpg',
-      },
-      message: 'Hotel acogedor con buenas vistas',
-      rating: 3,
-    },
-  ];
+  private _comments: Comment[] = [];
+  private _currentUser: User;
 
   constructor(
     private router: ActivatedRoute,
     private navController: NavController,
-    private alertController: AlertController
+    private toastController: ToastController,
+    private userService: UserAuthenticationService,
+    private commentService: CommentService,
+    private bookingService:BookingService
   ) {
     this.travel = JSON.parse(this.router.snapshot.queryParams['travel']);
-    this.commentData = new FormGroup({
-      message: new FormControl('', Validators.required),
-      rating: new FormControl('', Validators.required),
-    });
-    this.bookingData = new FormGroup({
-      startDate: new FormControl('',Validators.required),
-      endDate: new FormControl('',Validators.required),
-      persons: new FormControl('',Validators.required),
-      double: new FormControl()
-    })
+    this.formInitiation();
     this.total = this.travel.price;
+    this.currentUser = this.userService.user;
+    this.getComments();
+    this.commentService.getCommentsFromTravel(this.travel.id);
   }
 
   getFormatedTodayDate(): string {
@@ -58,41 +51,70 @@ export class TravelComponent implements OnInit {
 
   public async postComment() {
     if (!this.commentData.valid) {
-      this.alertError("Rellene todos los campos obligatorios")
+      this.toastError('Rellene todos los campos obligatorios');
       return;
     }
     let comment: Comment = this.commentData.value;
-    comment.user = {
-      username: 'Albertux2',
-      imgUrl:
-        'https://ih1.redbubble.net/image.531944933.8717/flat,750x1000,075,f.u4.jpg',
-    };
+    comment.user = this.currentUser;
     comment.date = new Date();
-    this.comments.push(comment);
     this.commentData.reset();
+    this.commentService.postComment(comment, this.travel.id);
   }
 
-  private async alertError(message:string){
-    const alert = await this.alertController.create({
+  private async toastError(message: string) {
+    const alert = await this.toastController.create({
       header: 'Error formulario',
       message: message,
-      buttons: ['OK'],
+      icon: 'information-circle',
+      position: 'bottom',
+      animated: true,
+      duration: 5000,
     });
     await alert.present();
   }
 
-  public async createBooking(){
+  private formInitiation() {
+    this.commentData = new FormGroup({
+      message: new FormControl('', Validators.required),
+      rating: new FormControl('', Validators.required),
+    });
+    this.bookingData = new FormGroup({
+      startDate: new FormControl('', Validators.required),
+      endDate: new FormControl('', Validators.required),
+      persons: new FormControl('', Validators.required),
+      doubleBed: new FormControl(),
+    });
+  }
+
+  public async createBooking() {
     if (!this._bookingData.valid) {
-      this.alertError("Rellene todos los campos obligatorios")
+      this.toastError('Rellene todos los campos obligatorios');
       return;
     }
-    console.log(this.bookingData.value)
+    let booking:Booking = this.bookingData.value;
+    booking.user = this.userService.user;
+    booking.travel = this.travel;
+    if(booking.doubleBed){
+      this.total+=10;
+    }
+    booking.price = this.total;
+    this.bookingService.postBooking(booking)
+  }
+
+  public getComments() {
+    this.commentService.commentList$.subscribe((res) => {
+      this._comments = res;
+      this.comments.map((c) => {
+        c.date = new Date(c.date);
+      });
+    });
   }
 
   ngOnInit() {}
 
   public setStartDate(value: string) {
     this.endDate = undefined;
+    this.total = this.travel.price;
     let newDate: string = value.split('T')[0];
     this._startDate = new Date(newDate);
   }
@@ -100,12 +122,27 @@ export class TravelComponent implements OnInit {
   public setEndDate(value: string) {
     let newDate: string = value.split('T')[0];
     this.endDate = new Date(newDate);
+    this.calculateDays();
+    this.total = this.travel.price * (this.calculateDays() + 1);
+  }
+
+  private calculateDays() {
+    const millisecondsPerDay = 1000 * 60 * 60 * 24;
+    return Math.floor(
+      (this.endDate.getTime() - this.startDate.getTime()) / millisecondsPerDay
+    );
   }
 
   public goBack() {
     this.navController.back();
   }
 
+  public get currentUser(): User {
+    return this._currentUser;
+  }
+  public set currentUser(value: User) {
+    this._currentUser = value;
+  }
   public get travel(): Travel {
     return this._travel;
   }

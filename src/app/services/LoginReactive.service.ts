@@ -6,17 +6,20 @@ import { MyFormGroup } from '../model/myFormGroup';
 @Injectable({
   providedIn: 'root',
 })
-export class RegisterReactiveService {
+export class LoginReactiveService {
   private _myFormGroup!: MyFormGroup;
 
-  private nombreCampos = ['Usuario','Dirección de la imagen (Opcional)', 'Contraseña', 'Confirmar contraseña'];
-  public nombreControles = ['username','imgUrl', 'password', 'passwordConfirm'];
-  private inputType = ['text','text','password','password']
+  private nombreCampos = ['Usuario', 'Contraseña'];
+  public nombreControles = ['logUser', 'logPass'];
+  private inputType = ['text','password']
   private controles = [
-    new MyFormControl('', [Validators.required]),
-    new MyFormControl('', []),
-    new MyFormControl('', [Validators.required, Validators.minLength(6)]),
-    new MyFormControl('', [Validators.required, Validators.minLength(6)]),
+    new MyFormControl('', [
+      Validators.required
+    ]),
+    new MyFormControl(
+      '',
+      Validators.required
+    ),
   ];
   constructor() {
     this._myFormGroup = new MyFormGroup(
@@ -26,24 +29,14 @@ export class RegisterReactiveService {
       this.inputType
     );
     this._myFormGroup.insertarValidationMessages(
-      'username',
-      ['required'],
+      'logUser',
+      ['required','minlength'],
       ['El usuario es requerido']
     );
     this._myFormGroup.insertarValidationMessages(
-      'password',
-      ['required','minlength'],
-      ['La contraseña es requerida','Minimo 6 caracteres']
-    );
-    this._myFormGroup.insertarValidationMessages(
-      'passwordConfirm',
-      ['required','minlength'],
-      ['La confirmación es requerida','Minimo 6 caracteres']
-    );
-    this._myFormGroup.insertarValidationMessages(
-      'imgUrl',
+      'logPass',
       ['required'],
-      ['La confirmación es requerida']
+      ['La contraseña es requerida']
     );
   }
   validateControl(element: string): boolean {
@@ -52,9 +45,9 @@ export class RegisterReactiveService {
       !this._myFormGroup.getControl(element).valid;
     return resultado;
   }
-
+  
   public getErrorMessage(control: string) {
-    let algo = this._myFormGroup.getControl(control);
+    let algo=this._myFormGroup.getControl(control)
     return algo.getValidationMessages();
   }
   public get myFormGroup(): MyFormGroup {

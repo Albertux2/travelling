@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserAuthenticationService } from '../services/UserAuthentication.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
 
+  constructor(private _userService: UserAuthenticationService) {}
+
+  public get userService(): UserAuthenticationService {
+    return this._userService;
+  }
+  public set userService(value: UserAuthenticationService) {
+    this._userService = value;
+  }
 }

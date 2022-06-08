@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Travel } from 'src/app/model/Travel';
-import { CardService } from 'src/app/services/card.service';
+import { FavoriteService } from 'src/app/services/favorite.service';
 
 @Component({
   selector: 'app-TravelCard',
@@ -10,7 +10,7 @@ import { CardService } from 'src/app/services/card.service';
 })
 export class TravelCardComponent implements OnInit {
 
-  constructor(private cardService:CardService,private router:Router) { }
+  constructor(private cardService:FavoriteService,private router:Router) { }
 
   @Input() card:Travel
 
@@ -28,7 +28,7 @@ export class TravelCardComponent implements OnInit {
   public addToFavorite(event){
     event.stopPropagation()
     this.card.favorite = !this.card.favorite;
-    this.cardService.toggleFavorite(this.card);
+    this.cardService.toggleFavorite(this.card.id);
     
   }
 

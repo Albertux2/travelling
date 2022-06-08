@@ -1,0 +1,20 @@
+<ion-card  class="border border-white">
+  <ion-card-header>
+    <div class="flex">
+      <ion-avatar>
+        <ion-img
+          src={{comment.user.imgUrl}}
+          class="border-4 border-white"
+        ></ion-img>
+      </ion-avatar>
+      <div class="mx-2">
+        <ion-card-title>{{comment.user.username}}</ion-card-title>
+        <ion-card-subtitle>Valoración: {{"★".repeat(comment.rating)}}</ion-card-subtitle>
+        <ion-card-subtitle>{{comment.date.toLocaleDateString("en-GB")}}</ion-card-subtitle>
+      </div>
+    </div>
+  </ion-card-header>
+  <ion-card-content>
+    <p>{{comment.message}}</p>
+  </ion-card-content>
+</ion-card>

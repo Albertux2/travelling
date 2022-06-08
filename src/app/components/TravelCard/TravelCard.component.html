@@ -3,12 +3,12 @@
     <img
       src="{{card.imgUrl}}"
       class="w-full max-h-56 h-56 object-cover"
-      onerror="this.src='https://media-cdn.tripadvisor.com/media/photo-s/1c/de/e7/a3/exterior-predator-lagoon.jpg'"
+      onerror="this.src='https://st.depositphotos.com/2288675/2455/i/950/depositphotos_24553989-stock-photo-hotel.jpg'"
     />
   </div>
   <ion-card-header>
     <ion-card-subtitle> {{card.type}} </ion-card-subtitle>
-    <ion-card-title> {{card.title}} {{"⋆".repeat(card.valoration)}}</ion-card-title>
+    <ion-card-title> {{card.title}} {{"★".repeat(card.valoration)}}  |  <strong>{{card.location}}</strong></ion-card-title>
   </ion-card-header>
   <ion-card-content>
     {{card.content}}

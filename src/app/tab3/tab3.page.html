@@ -1,26 +1,44 @@
-<app-TabHeader [name]="'Perfilito'" [icon]="'person'"></app-TabHeader>
+<app-TabHeader [name]="'Perfil'" [icon]="'person'"></app-TabHeader>
 <ion-content [fullscreen]="true">
   <ion-card
-    class="m-3 h-5/6 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-900 border-2 border-white shadow-md shadow-white"
+    class="m-3 h-[92%] bg-gradient-to-b from-gray-700 via-gray-600 to-gray-900 border-2 border-white shadow-md shadow-white"
   >
     <ion-card-header>
       <div class="flex items-center justify-center">
         <img
           class="h-32 w-32 rounded-full border-solid border-4 border-white object-cover"
-          src="https://cdn-icons-png.flaticon.com/512/2922/2922566.png"
+          src="{{user.imgUrl}}"
+          onerror="src='https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0='"
         />
       </div>
       <div class="mt-1 max-h-max text-center">
         <ion-card-title class="truncate text-2xl font-bold"
-          >Josefa</ion-card-title
+          >{{user.username}}</ion-card-title
         >
       </div>
     </ion-card-header>
     <ion-card-content class="ion-text-center">
       <div class="max-h-max">
-        <ion-button fill="outline" class="font-bold" expand="block" size="large"><ion-icon class="mr-1" icon="time"></ion-icon>Historial</ion-button>
-        <ion-button fill="outline" class="font-bold" expand="block" size="large"><ion-icon class="mr-1" icon="calendar"></ion-icon>Reservas</ion-button>
-        <ion-button fill="outline" class="font-bold" expand="block" size="large"><ion-icon class="mr-1" name="chatbubbles-sharp"></ion-icon>Comentarios</ion-button>
+        <ion-button (click)="goToHistory()" fill="outline" class="font-bold" expand="block" size="large"
+          ><ion-icon class="mr-1" icon="time"></ion-icon>Historial</ion-button
+        >
+        <ion-button (click)="goToBooking()" fill="outline" class="font-bold" expand="block" size="large"
+          ><ion-icon class="mr-1" icon="calendar"></ion-icon
+          >Reservas</ion-button
+        >
+        <ion-button fill="outline" (click)="goToComments()" class="font-bold" expand="block" size="large"
+          ><ion-icon class="mr-1" name="chatbubbles-sharp"></ion-icon
+          >Comentarios</ion-button
+        >
+        <ion-button
+          (click)="changeAvatar()"
+          fill="outline"
+          class="font-bold"
+          expand="block"
+          size="large"
+          ><ion-icon class="mr-1" name="camera"></ion-icon>Actualizar
+          avatar</ion-button
+        >
       </div>
     </ion-card-content>
   </ion-card>

@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <button ion-button icon-only (click)="goBack()">
+          <ion-icon icon="arrow-back-outline" class="text-2xl"></ion-icon>
+        </button>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngFor="let booking of bookings">
+    <ion-item class="m-2 border-2 border-white rounded-md">
+      <ion-list class="w-full">
+        <ion-item>
+          <ion-label>{{ booking.travel.title }}</ion-label>
+          <ion-label slot="end" color="danger"
+            >{{ booking.startDate.toLocaleDateString("en-GB") }} -
+            {{ booking.endDate.toLocaleDateString("en-GB") }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-text>Total estancia: {{ booking.price }}€</ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+  </div>
+  <ion-item
+    *ngIf="bookings.length <= 0"
+    class="m-2 border-2 border-white rounded-md"
+    >No hay ninguna reserva</ion-item
+  >
+</ion-content>

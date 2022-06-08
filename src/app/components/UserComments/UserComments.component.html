@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <button ion-button icon-only (click)="goBack()">
+          <ion-icon icon="arrow-back-outline" class="text-2xl"></ion-icon>
+        </button>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngFor="let comment of comments">
+    <ion-list class="m-2 border-2 border-white rounded-md">
+      <ion-title>{{comment.travel.hotelName}}</ion-title>
+      <app-Comment [comment]="comment"></app-Comment>
+    </ion-list>
+    <ion-item-divider></ion-item-divider>
+  </div>
+</ion-content>

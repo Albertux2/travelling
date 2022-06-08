@@ -13,11 +13,15 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { TravelModule } from './components/Travel/Travel.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginModule } from './components/Login/Login.module';
+import { UserTravelsModule } from './components/UserTravels/UserTravels.module';
+import { UserCommentsModule } from './components/UserComments/UserComments.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FontAwesomeModule,CommonModule,BrowserModule,TravelModule, NgbModule,],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FontAwesomeModule,CommonModule,BrowserModule,TravelModule, NgbModule,HttpClientModule,LoginModule,UserTravelsModule,UserCommentsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon icon="person" class="text-2xl"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="pl-1" slot="start">Inicio de sesión / Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-item class="m-4 border-2 border-white rounded-full">
+  <div class="flex items-center justify-center w-full">
+    <span>Iniciar sesión</span>
+    <ion-toggle
+      (ionChange)="changeCard(toggle.checked)"
+      #toggle
+      color="secondary"
+    ></ion-toggle>
+    <span>Registrarse</span>
+  </div>
+</ion-item>
+<ion-content>
+  <ion-card [hidden]="card" class="border-2 border-white">
+    <ion-card-header>
+      <ion-card-title>Iniciar sesión</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="login()" [formGroup]="loginControlForm.formGroup">
+        <ion-list>
+          <ion-item
+            *ngFor="let form of loginControlForm.formControls; let i = index"
+            color="tertiary"
+            class="rounded-xl mb-4"
+          >
+            <ion-label position="floating">{{
+              loginControlForm.nameFields[i]
+            }}</ion-label>
+            <ion-input
+              type="{{ loginControlForm.inputType[i] }}"
+              placeholder="{{ loginControlForm.nameFields[i] }}"
+              formControlName="{{ loginNombreControles[i] }}"
+            ></ion-input>
+            <span
+              *ngIf="
+                loginControlForm.formControls[i].invalid &&
+                loginControlForm.getControl(loginNombreControles[i]).touched
+              "
+              slot="error"
+              class="text-base"
+              ><ion-icon icon="alert-circle" class="mr-2"></ion-icon>{{loginForm.getErrorMessage(loginNombreControles[i]) }}</span
+            >
+          </ion-item>
+          <ion-button [disabled]="loginControlForm.formGroup.invalid" type="submit" expand="block">Iniciar sesión</ion-button>
+        </ion-list>
+      </form>
+    </ion-card-content>
+  </ion-card>
+  <ion-card [hidden]="!card" class="border-2 border-white">
+    <ion-card-header>
+      <ion-card-title>Registrarse</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="signup()" [formGroup]="registerControlForm.formGroup">
+        <ion-list>
+          <ion-item
+            *ngFor="let form of registerControlForm.formControls; let i = index"
+            color="tertiary"
+            class="rounded-xl mb-4"
+          >
+            <ion-label position="floating">{{
+              registerControlForm.nameFields[i]
+            }}</ion-label>
+            <ion-input
+              type="{{ registerControlForm.inputType[i] }}"
+              placeholder="{{ registerControlForm.nameFields[i] }}"
+              formControlName="{{ registerNombreControles[i] }}"
+            ></ion-input>
+            <span
+              *ngIf="
+                registerControlForm.formControls[i].invalid &&
+                registerControlForm.getControl(registerNombreControles[i]).touched
+              "
+              slot="error"
+              class="text-base"
+              ><ion-icon icon="alert-circle" class="mr-2"></ion-icon>{{registerForm.getErrorMessage(registerNombreControles[i]) }}</span
+            >
+          </ion-item>
+          <ion-button [disabled]="registerControlForm.formGroup.invalid" type="submit" expand="block">Registrarse</ion-button>
+        </ion-list>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

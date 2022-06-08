@@ -1,4 +1,5 @@
 export interface Travel{
+    id:number;
     title: string;
     imgUrl: string;
     content: string;
@@ -6,4 +7,5 @@ export interface Travel{
     favorite:boolean;
     valoration:number;
     price:number;
+    location:string;
 }

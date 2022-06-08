@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from '../guards/admin.guard';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -18,6 +19,12 @@ const routes: Routes = [
       {
         path: 'tab3',
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+      },
+      {
+        path: 'admin',
+        loadChildren: () => import('../tab-admin/tab-admin.module').then( m => m.TabAdminPageModule),
+        canActivate:[AdminGuard]
+
       },
       {
         path: '',

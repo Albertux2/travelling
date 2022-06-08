@@ -1,0 +1,44 @@
+<app-TabHeader [name]="'Admin'" [icon]="'cog'"></app-TabHeader>
+
+<ion-content>
+    <ion-item>
+        <form (ngSubmit)="addTravel()" [formGroup]="travelData" class="w-full h-full">
+            <ion-list class="p-4 w-full h-full">
+                <ion-item color="tertiary" class="rounded-xl mb-4">
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input formControlName="title" type="text"></ion-input>
+                </ion-item>
+                <ion-item color="tertiary" class="rounded-xl mb-4">
+                    <ion-label position="floating">Tipo de viaje</ion-label>
+                    <ion-input formControlName="type" type="text"></ion-input>
+                </ion-item>
+                <ion-item color="tertiary" class="rounded-xl mb-4">
+                    <ion-label position="floating">Descripción</ion-label>
+                    <ion-input formControlName="content" type="text"></ion-input>
+                </ion-item>
+                <ion-item color="tertiary" class="rounded-xl mb-4">
+                    <ion-label position="floating">Precio por día</ion-label>
+                    <ion-input formControlName="price" type="text"></ion-input>
+                </ion-item>
+                <ion-item color="tertiary" class="rounded-xl mb-4">
+                    <ion-label position="floating">Ubicación</ion-label>
+                    <ion-input formControlName="location" type="text"></ion-input>
+                </ion-item>
+                <ion-item color="tertiary" class="rounded-xl mb-4">
+                    <ion-label position="floating">Imagen (Opcional)</ion-label>
+                    <ion-input formControlName="imgUrl" type="text"></ion-input>
+                </ion-item>
+                <ion-item color="tertiary" class="rounded-xl mb-4">
+                        <ion-label slot="start">Estrellas</ion-label>
+                        <ngb-rating
+                        slot="end"
+                        formControlName="valoration"
+                        [max]="5"
+                        class="text-4xl w-full flex justify-center items-center p-2"
+                        ></ngb-rating>
+                </ion-item>
+                <ion-button class="text-base" [disabled]="!travelData.valid" type="submit" expand="block">Añadir</ion-button>
+            </ion-list>
+        </form>
+    </ion-item>
+</ion-content>
